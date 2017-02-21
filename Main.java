@@ -22,9 +22,16 @@ public class Main {
         long time = 0;
 
         // Read in from a text file.
-        String fileToCode = readFile(TXT_FILE);
-        CodingTree theCode = new CodingTree(fileToCode);
+        String fileAsString = readFile(TXT_FILE);
+        CodingTree treeCode = new CodingTree(fileAsString);
 
+        // Write coded file.
+        writeCodedFile(CODE_FILE, treeCode);
+
+        // Write compressed file & Get time to compress.
+        time = writeCompressFile(COMPRESS_FILE, treeCode, fileAsString);
+
+        // Apply results to display info
         uncompressed = getFileSize(TXT_FILE);
         compressed = getFileSize(COMPRESS_FILE);
         ratio = compressed * 100 / uncompressed;
@@ -40,14 +47,14 @@ public class Main {
     }
 
     /** Get file size. */
-    private static long getFileSize(String myFile) {
-        File file = new File(myFile);
+    private static long getFileSize(String theFile) {
+        File file = new File(theFile);
         return file.length();
     }
 
     /** Read the txt file into a string. */
-    private static String readFile(String myFile) throws IOException {
-        File file = new File(myFile);
+    private static String readFile(String theFile) throws IOException {
+        File file = new File(theFile);
 
         StringBuilder returnFile = new StringBuilder();
 
@@ -62,12 +69,23 @@ public class Main {
     }
 
     /** Write the coded file. */
-    private static void writeCodedFile() {
-
+    private static void writeCodedFile(String theFile, CodingTree theTree) throws IOException {
+        FileWriter file = new FileWriter(theFile);
+        file.write(theTree.myCodes.toString());
+        file.close();
     }
 
     /** Write the compressed file. */
-    private static void writeCompressFile() {
+    private static long writeCompressFile(String theFile, CodingTree theTree, String theText) throws IOException {
+        long startTime = System.currentTimeMillis();
 
+        FileOutputStream compressFile = new FileOutputStream(theFile);
+
+        // Stuff
+
+        compressFile.close();
+
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
     }
 }
