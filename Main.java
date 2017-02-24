@@ -13,7 +13,8 @@ public class Main {
     private static final String TXT_FILE = "WarAndPeace.txt";
     private static final String CODE_FILE = "codes.txt";
     private static final String COMPRESS_FILE = "compressed.txt";
-    private static final String TEST = "Banana anna bandanna apples asdfgasdfgsdfg zzzzzzzzzzzzzz";
+    private static final String TEST = "Banana anna bandanna apples asdfgasdfgsdfg"
+                                     + "zzzzzzzzzzzzzzz abcdefghikjlmnopqrstuvwxyz";
 
     /** Main Method. */
     public static void main(String[] args) throws IOException {
@@ -82,7 +83,6 @@ public class Main {
         long startTime = System.currentTimeMillis();
 
         StringBuilder sb = new StringBuilder();
-
         FileOutputStream compressFile = new FileOutputStream(theFile);
 
         for (int i = 0; i < theText.length(); i++) {
@@ -98,10 +98,10 @@ public class Main {
 
             }
             // Test what it's being shown.
-            //System.out.println(code);
+            // System.out.println(code);
         }
 
-        // Write the last block & close.
+        // Write the last binary block & close the file.
         compressFile.write(Integer.parseInt(sb.toString(), 2));
         compressFile.close();
 
